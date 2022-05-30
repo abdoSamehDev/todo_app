@@ -76,7 +76,7 @@ Widget buildTaskItem(Map model) => Padding(
             '${model['time']}',
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Column(
@@ -85,7 +85,7 @@ Widget buildTaskItem(Map model) => Padding(
           children: [
             Text(
               '${model['title']}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 25,
                 // color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ Widget buildTaskItem(Map model) => Padding(
             ),
             Text(
               '${model['date']}',
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.grey
               ),
             ),
