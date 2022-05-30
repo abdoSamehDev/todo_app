@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,14 +17,8 @@ class NewTaskScreen extends StatelessWidget {
       listener: (context, state) {
       },
       builder: (context, state) {
-        var tasks = AppCubit.get(context).tasks;
-      return ListView.separated(itemBuilder: (context, index) => buildTaskItem(tasks[index]),
-          separatorBuilder: (context, index) => Container(
-            width: double.infinity,
-            height: 1,
-            color: Colors.grey[400],
-          ),
-          itemCount: tasks.length);
+        var tasks = AppCubit.get(context).newTasks;
+      return tasksBuilder(tasks, 'No tasks added yet, please add some tasks!');
     },
     );
   }

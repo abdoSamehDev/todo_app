@@ -1,14 +1,11 @@
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/layout/cubit/cubit.dart';
 import 'package:todo_app/layout/cubit/states.dart';
 import 'package:todo_app/shared/components/components.dart';
 
-import '../shared/components/constants.dart';
 
 class TodoApp extends StatelessWidget {
   TodoApp({Key? key}) : super(key: key);
@@ -21,16 +18,6 @@ class TodoApp extends StatelessWidget {
   var timeController = TextEditingController();
   late TimeOfDay? time;
   late DateTime? date;
-
-
-
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   databaseCreate();
-  // }
 
   @override
   Widget build(BuildContext context) {
