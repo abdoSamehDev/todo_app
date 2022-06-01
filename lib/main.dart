@@ -17,7 +17,7 @@ void main() async {
           WidgetsFlutterBinding.ensureInitialized();
           final prefs = await SharedPreferences.getInstance();
           show = prefs.getBool('INTRODUCTION') ?? true;
-          runApp(MyApp());
+          runApp(const MyApp());
           },
     blocObserver: MyBlocObserver(),
   );
@@ -30,6 +30,8 @@ void main() async {
 
 class MyApp extends StatelessWidget
 {
+  const MyApp({Key? key}) : super(key: key);
+
   // MyApp({required show});
 
   @override
@@ -37,22 +39,22 @@ class MyApp extends StatelessWidget
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        splash: Container(
-          height: double.infinity,
+        splash: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              Image.asset('assets/images/start-screen.png',
-                scale: 5,
+              Image.asset('assets/images/app-logo.png',
+                scale: 8,
               ),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               const Text(
-                'BMI Calculator',
+                'Todo App',
                 style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Colors.white
                 ),
@@ -61,18 +63,15 @@ class MyApp extends StatelessWidget
               //   height: 100,
               // ),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsetsDirectional.only(bottom: 10),
-                child: Image.asset('assets/images/logo.png',
-                  width: 55,
-                  height: 55,
-                ),
+              Image.asset('assets/images/logo.png',
+                width: 55,
+                height: 55,
               ),
             ],
           ),
         ),
         nextScreen: show ? FirstTimeScreen() : TodoApp(),
-        backgroundColor: const Color.fromRGBO(11, 11, 69, 1),
+        backgroundColor: Colors.blue,
         animationDuration: const Duration(seconds: 1),
         // splashTransition: SplashTransition.,
         // centered: true,

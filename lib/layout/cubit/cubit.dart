@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/layout/cubit/states.dart';
 
@@ -17,9 +16,9 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screen = [
-    NewTaskScreen(),
-    DoneTaskScreen(),
-    ArchivedTaskScreen()
+    const NewTaskScreen(),
+    const DoneTaskScreen(),
+    const ArchivedTaskScreen()
   ];
 
   List<String> appBarTitle = [
@@ -44,19 +43,20 @@ class AppCubit extends Cubit<AppStates> {
       'todo.db',
       version: 1,
       onCreate: (database, version) async{
-        print('database created');
+        // print('database created');
         try{
           await database.execute(
               'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)'
           );
-          print('table created');}
+          // print('table created');
+        }
         catch(error){
-          print('Error found ${error.toString()}');
+          // print('Error found ${error.toString()}');
         }
       },
       onOpen: (database) {
         getDataFromDatabase(database);
-        print('database opened');
+        // print('database opened');
       },
 
     ).then((value) {
@@ -77,7 +77,7 @@ class AppCubit extends Cubit<AppStates> {
     await database.transaction((txn) async {
       {
         txn.rawInsert('INSERT INTO tasks(title, date, time, status) VALUES("$title", "$date", "$time", "new")').then((value) {
-          print('$value added successfully');
+          // print('$value added successfully');
           emit(AppInsertDatabaseState());
 
           getDataFromDatabase(database);
@@ -95,7 +95,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppGetDatabaseLoadingState());
 
     database.rawQuery('SELECT * FROM tasks').then((value) {
-      print(newTasks);
+      // print(newTasks);
 
       value.forEach((element){
         if (element['status'] == 'new'){

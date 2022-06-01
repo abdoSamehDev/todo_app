@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/layout/cubit/cubit.dart';
 import 'package:todo_app/layout/cubit/states.dart';
 import 'package:todo_app/shared/components/components.dart';
@@ -33,10 +33,16 @@ class TodoApp extends StatelessWidget {
           AppCubit cubit = AppCubit.get(context);
 
           return Scaffold(
-          key: scaffoldKey,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            actions: [
+            backgroundColor: const Color(0xff045c99),
+            // backgroundColor: Colors.blue,
+            key: scaffoldKey,
+
+            appBar: AppBar(
+              elevation: 0,
+              // backgroundColor: Color(0xff045c99),
+              backgroundColor: Colors.blue,
+              automaticallyImplyLeading: false,
+              actions: [
               IconButton(
                   onPressed: () async {
                     cubit.showIntroduction(context);
@@ -64,25 +70,12 @@ class TodoApp extends StatelessWidget {
                   },
 
                   );
-                //   await databaseInsert(
-                //       title: titleController,
-                //       date: date,
-                //       time: time
-                //   );
-                //   Navigator.pop(context);
-                //   isBottomSheetShown = false;
-                //   // setState(() {
-                //   //   fabIcon = Icons.edit;
-                //   // });
-                //   // print(titleController.text);
-                //   // print({DateFormat.yMEd().format(date!)});
-                //   // print(time!.format(context));
                 }
               }
               else{
                 scaffoldKey.currentState!.showBottomSheet((context) {
                   return Container(
-                    color: Colors.grey[100],
+                    color: Colors.blue,
                     padding: const EdgeInsets.all(20),
                     child: Form(
                       key: formKey,
@@ -139,6 +132,11 @@ class TodoApp extends StatelessWidget {
             child: Icon(cubit.fabIcon),
           ),
           bottomNavigationBar: BottomNavigationBar(
+            elevation: 1,
+            // backgroundColor: Color(0xff045c99),
+            backgroundColor: Colors.blue,
+            unselectedItemColor: const Color(0xff045c99),
+            selectedItemColor: Colors.white,
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.menu),
@@ -162,7 +160,7 @@ class TodoApp extends StatelessWidget {
           body: ConditionalBuilder(
             condition: state is! AppGetDatabaseLoadingState,
             builder: (context) => cubit.screen [cubit.currentIndex],
-            fallback: (context) => const Center(child: const CircularProgressIndicator()),
+            fallback: (context) => const Center(child: CircularProgressIndicator()),
           ),
 
         );

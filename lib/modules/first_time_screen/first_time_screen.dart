@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/layout/layout_screen.dart';
-import 'package:todo_app/shared/components/components.dart';
+// import 'package:todo_app/shared/components/components.dart';
 
 class FirstTimeScreen extends StatelessWidget {
   FirstTimeScreen({Key? key}) : super(key: key);
@@ -14,12 +14,15 @@ class FirstTimeScreen extends StatelessWidget {
       title: 'Welcome',
       body: 'Before you start using the app, here\'s some introduction that will help you',
       decoration: const PageDecoration(
+        // pageColor: Color(0xff4cb050),
         titleTextStyle: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
         bodyTextStyle: TextStyle(
           fontSize: 20.0,
+          color: Colors.white,
         ),
       ),
     ),
@@ -38,12 +41,15 @@ class FirstTimeScreen extends StatelessWidget {
       
       6. use the info in the top right button to see this introduction again.''',
       decoration: const PageDecoration(
+        // pageColor: Color(0xff4cb050),
         titleTextStyle: TextStyle(
           fontSize: 40.0,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
       ),
         bodyTextStyle: TextStyle(
           fontSize: 20.0,
+          color: Colors.white,
         ),
     ),
   )];
@@ -51,11 +57,13 @@ class FirstTimeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff045c99),
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: (
-        Text(
+        const Text(
             'Todo App',
         style: TextStyle(
           fontSize: 30,
@@ -74,15 +82,16 @@ class FirstTimeScreen extends StatelessWidget {
            activeSize: Size.square(20),
          ),
          showDoneButton: true,
+         globalBackgroundColor: const Color(0xff045c99),
          done: Container(
            child: const Center(
-             child: Text('Done',
+             child: Text('OK',
                style: TextStyle(
                  fontSize: 20,
                  color: Colors.white
                ),),
            ),
-           width: 100,
+           width: 70,
            height: 50,
              decoration: BoxDecoration(
                borderRadius: BorderRadius.circular(25),
