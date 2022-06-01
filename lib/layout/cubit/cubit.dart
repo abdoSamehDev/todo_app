@@ -5,6 +5,7 @@ import 'package:todo_app/layout/cubit/states.dart';
 
 import '../../modules/archived_tasks/archived_tasks_screen.dart';
 import '../../modules/done_tasks/done_tasks_screen.dart';
+import '../../modules/first_time_screen/first_time_screen.dart';
 import '../../modules/new_tasks/new_tasks_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -15,9 +16,9 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screen = [
-    NewTaskScreen(),
-    DoneTaskScreen(),
-    ArchivedTaskScreen()
+    const NewTaskScreen(),
+    const DoneTaskScreen(),
+    const ArchivedTaskScreen()
   ];
 
   List<String> appBarTitle = [
@@ -42,19 +43,20 @@ class AppCubit extends Cubit<AppStates> {
       'todo.db',
       version: 1,
       onCreate: (database, version) async{
-        print('database created');
+        // print('database created');
         try{
           await database.execute(
               'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)'
           );
-          print('table created');}
+          // print('table created');
+        }
         catch(error){
-          print('Error found ${error.toString()}');
+          // print('Error found ${error.toString()}');
         }
       },
       onOpen: (database) {
         getDataFromDatabase(database);
-        print('database opened');
+        // print('database opened');
       },
 
     ).then((value) {
@@ -75,7 +77,7 @@ class AppCubit extends Cubit<AppStates> {
     await database.transaction((txn) async {
       {
         txn.rawInsert('INSERT INTO tasks(title, date, time, status) VALUES("$title", "$date", "$time", "new")').then((value) {
-          print('$value added successfully');
+          // print('$value added successfully');
           emit(AppInsertDatabaseState());
 
           getDataFromDatabase(database);
@@ -93,7 +95,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppGetDatabaseLoadingState());
 
     database.rawQuery('SELECT * FROM tasks').then((value) {
-      print(newTasks);
+      // print(newTasks);
 
       value.forEach((element){
         if (element['status'] == 'new'){
@@ -149,6 +151,12 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppDelDatabaseState());
     });
   }
+  void showIntroduction(context) async{
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.setBool('INTRODUCTION', true);
+    Navigator.push(context, MaterialPageRoute(builder: ((context) => FirstTimeScreen())));
+  }
+
 
 
 }

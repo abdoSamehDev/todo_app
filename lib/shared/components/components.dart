@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
+// import 'package:bloc/bloc.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/layout/cubit/cubit.dart';
-import 'package:todo_app/shared/components/constants.dart';
+// import 'package:todo_app/shared/components/constants.dart';
 
 Widget defaultButton(
         {double width = double.infinity,
@@ -37,7 +37,8 @@ Widget defaultTextFormField(
         IconData? suffix,
         void Function()? suffixButtonFunction,
         void Function()? onTapFunction,
-        bool border = true}) =>
+        bool border = true
+        }) =>
     TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
@@ -47,12 +48,27 @@ Widget defaultTextFormField(
       },
       controller: controller,
       onFieldSubmitted: onSubmitted,
-      keyboardType: TextInputType.visiblePassword,
+      keyboardType: type,
       obscureText: isPassword,
       onTap: onTapFunction,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
+        // fillColor: Colors.white,
+        // filled: true,
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff045c99)
+          ),
+        ),
         labelText: label,
-        prefixIcon: Icon(prefix),
+        labelStyle: const TextStyle(color: Colors.white),
+        prefixIcon: Icon(prefix,
+        color: Colors.white,),
         suffixIcon: suffix != null
             ? IconButton(
                 icon: Icon(suffix),
@@ -87,9 +103,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                     '${model['title']}',
                     style: const TextStyle(
                       fontSize: 25,
-
-                      // color: Colors.white,
-
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -98,8 +112,8 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                   ),
                   Text(
                     '${model['date']}',
-                    style: const TextStyle(
-                      color: Colors.grey,
+                    style: TextStyle(
+                      color: Colors.grey[400],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -148,7 +162,7 @@ Widget tasksBuilder (List<Map> tasks, String msg) => ConditionalBuilder(
       separatorBuilder: (context, index) => Container(
         width: double.infinity,
         height: 1,
-        color: Colors.grey[400],
+        color: Colors.grey[300],
       ),
       itemCount: tasks.length),
   fallback: (context) => Padding(
@@ -157,17 +171,17 @@ Widget tasksBuilder (List<Map> tasks, String msg) => ConditionalBuilder(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
+          Icon(
             Icons.menu,
-            color: Colors.grey,
+            color: Colors.grey[300],
             size: 100,
           ),
           Text(
-            '$msg',
+            msg,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 25,
-                color: Colors.grey,
+                color: Colors.grey[300],
                 fontWeight: FontWeight.bold
             ),
           ),
@@ -176,3 +190,5 @@ Widget tasksBuilder (List<Map> tasks, String msg) => ConditionalBuilder(
     ),
   ),
 );
+
+bool show = true;
