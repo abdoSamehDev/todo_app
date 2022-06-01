@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/layout/cubit/cubit.dart';
 import 'package:todo_app/layout/cubit/states.dart';
 import 'package:todo_app/shared/components/components.dart';
@@ -34,6 +35,14 @@ class TodoApp extends StatelessWidget {
           return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                  onPressed: () async {
+                    cubit.showIntroduction(context);
+                  },
+                  icon: const Icon(Icons.info_outline_rounded))
+            ],
             title: Text(
               cubit.appBarTitle[cubit.currentIndex],
               style: const TextStyle(
@@ -153,7 +162,7 @@ class TodoApp extends StatelessWidget {
           body: ConditionalBuilder(
             condition: state is! AppGetDatabaseLoadingState,
             builder: (context) => cubit.screen [cubit.currentIndex],
-            fallback: (context) => Center(child: CircularProgressIndicator()),
+            fallback: (context) => const Center(child: const CircularProgressIndicator()),
           ),
 
         );

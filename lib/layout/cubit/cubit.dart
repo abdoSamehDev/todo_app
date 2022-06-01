@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/layout/cubit/states.dart';
 
 import '../../modules/archived_tasks/archived_tasks_screen.dart';
 import '../../modules/done_tasks/done_tasks_screen.dart';
+import '../../modules/first_time_screen/first_time_screen.dart';
 import '../../modules/new_tasks/new_tasks_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -149,6 +151,12 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppDelDatabaseState());
     });
   }
+  void showIntroduction(context) async{
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.setBool('INTRODUCTION', true);
+    Navigator.push(context, MaterialPageRoute(builder: ((context) => FirstTimeScreen())));
+  }
+
 
 
 }
